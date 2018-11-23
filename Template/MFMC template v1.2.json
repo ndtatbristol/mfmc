@@ -1,0 +1,222 @@
+{
+
+"version": "Beta 1.2",
+
+"filename": "MFMC template v1.2.json",
+
+"probe_root": "/PROBE<p>", 
+"mfmc_root": "/MFMC<m>",
+"mfmc_data": ["/MFMC<m>/MFMC_DATA", "/MFMC<m>/MFMC_DATA_IM"],
+"user_locations": ["/USER", "/PROBE<p>/USER", "/MFMC<m>/COMMON/USER"],
+"index_start_char": "<",
+"index_end_char": ">",
+
+"expandable_dimension": ["N_F<m>"],
+
+"must_be_drawn_from": [
+    ["/MFMC<m>/COMMON/TRANSMIT_PROBE", "<p>"],
+    ["/MFMC<m>/COMMON/RECEIVE_PROBE", "<p>"]
+],
+
+"structure": [
+
+{   "location": "/VERSION",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/TEMPLATE_FILENAME",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/PROBE<p>/ELEMENT_POSITION",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_E<p>"]},
+
+{   "location": "/PROBE<p>/ELEMENT_MINOR",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_E<p>"]},
+
+{   "location": "/PROBE<p>/ELEMENT_MAJOR",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_E<p>"]},
+
+{   "location": "/PROBE<p>/ELEMENT_SHAPE",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_E<p>"]},
+
+{   "location": "/PROBE<p>/CENTRE_FREQUENCY",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [1]},
+
+{   "location": "/PROBE<p>/PROBE_TAG",
+    "dataset": false,
+    "mandatory": false,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/COMMON/TIME_STEP",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/COMMON/START_TIME",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/COMMON/SPECIMEN_VELOCITIES",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [2]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_PROBE",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_A<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_ELEMENT",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_A<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_PROBE",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_A<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_ELEMENT",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_A<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/FIRING_INDEX",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_A<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/PROBE_LIST",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_P<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/OPERATOR",
+    "dataset": false,
+    "mandatory": false,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/COMMON/DATE_AND_TIME",
+    "dataset": false,
+    "mandatory": false,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/PROBE_POSITION",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_B<m>", "N_P<m>", "N_F<m>"]},
+
+{   "location": "/MFMC<m>/PROBE_X_DIRECTION",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_B<m>", "N_P<m>", "N_F<m>"]},
+
+{   "location": "/MFMC<m>/PROBE_Y_DIRECTION",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": [3, "N_B<m>", "N_P<m>", "N_F<m>"]},
+
+{   "location": "/MFMC<m>/MFMC_DATA",
+    "dataset": true,
+    "mandatory": true,
+    "hdf5_class": ["H5T_FLOAT", "H5T_INTEGER"],
+    "dimension": ["N_T<m>", "N_A<m>", "N_F<m>"]},
+
+{   "location": "/MFMC<m>/MFMC_DATA_IM",
+    "dataset": true,
+    "mandatory": false,
+    "hdf5_class": ["H5T_FLOAT", "H5T_INTEGER"],
+    "dimension": ["N_T<m>", "N_A<m>", "N_F<m>"]},
+
+{   "location": "/MFMC<m>/COMMON/TAG",
+    "dataset": false,
+    "mandatory": false,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_FOCAL_LAW<t>/PROBE",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_TE<m><t>"]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_FOCAL_LAW<t>/ELEMENT",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_TE<m><t>"]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_FOCAL_LAW<t>/DELAY",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": ["N_TE<m><t>"]},
+
+{   "location": "/MFMC<m>/COMMON/TRANSMIT_FOCAL_LAW<t>/WEIGHTING",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": ["N_TE<m><t>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_FOCAL_LAW<r>/PROBE",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_RE<m><r>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_FOCAL_LAW<r>/ELEMENT",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_INTEGER",
+    "dimension": ["N_RE<m><r>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_FOCAL_LAW<r>/DELAY",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": ["N_RE<m><r>"]},
+
+{   "location": "/MFMC<m>/COMMON/RECEIVE_FOCAL_LAW<r>/WEIGHTING",
+    "dataset": true,
+    "mandatory": "optional",
+    "hdf5_class": "H5T_FLOAT",
+    "dimension": ["N_RE<m><r>"]}
+]
+
+}
