@@ -3,6 +3,7 @@ errors = {};
 dim_list = [];
 % dim_list = {};
 %check for presence
+%strcmp(file_location, "/MFMC<1>/MFMC_DATA/COMMON/TRANSMIT_FOCAL_LAW<1>/PROBE")
 if template_struct.dataset
     try
         info = h5info(fname, file_location);

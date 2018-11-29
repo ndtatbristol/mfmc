@@ -33,7 +33,6 @@ if ~isempty(current_template_fname) && strcmp(current_template_fname, template_f
 end
 
 try 
-%     template = jsondecode(fileread(['..', filesep, 'templates', filesep, template_fname_in_file]));
     template = jsondecode(fileread([template_path, filesep, template_fname_in_file]));
 catch
     fprintf('Failed to read required template file\n');

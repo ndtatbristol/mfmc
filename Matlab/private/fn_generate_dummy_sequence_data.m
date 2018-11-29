@@ -37,7 +37,7 @@ end
 sequence.common.firing_index = sequence.common.transmit_element; %N_(A,m)
 sequence.common.time_step = rand(1); %1
 sequence.common.start_time = rand(1); %1
-sequence.common.specimen_velocities = rand(1, 2); %2
+sequence.common.specimen_velocity = rand(1, 2); %2
 probes = [];
 if isempty(N_TEtm)
     probes = unique([probes; sequence.common.transmit_probe(:)]);

@@ -40,6 +40,12 @@ for ii = 1:N_M
     frame(ii) = fn_generate_dummy_frame_data(N_Tm, N_Am, N_Fm, N_Bm, N_Pm, raw_data_type);
 end
 
+%Uncomment one of following to introduce deliberate errors into MFMC file
+%to test fn_MFMC_check_file function
+% sequence(1).common = rmfield(sequence(1).common, 'transmit_focal_law'); % removal of optional group
+% sequence(1).common.transmit_focal_law = rmfield(sequence(1).common.transmit_focal_law, 'delay'); % removal of mandatory dataset in optional group
+sequence(1).common.transmit_probe = sequence(1).common.transmit_probe(1:end-1);% removal of end of dataset to cause size mismatch
+
 %--------------------------------------------------------------------------
 
 %add probes to file

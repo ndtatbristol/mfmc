@@ -52,7 +52,7 @@ for fi = 1:length(input_exp_data_fnames)
         sequence.common.firing_index = int64(sequence.common.transmit_element); %N_(A,m)
         sequence.common.time_step = exp_data.time(2) - exp_data.time(1); %1
         sequence.common.start_time = exp_data.time(1); %1
-        sequence.common.specimen_velocities = [exp_data.ph_velocity / 2; exp_data.ph_velocity]; %2
+        sequence.common.specimen_velocity = [exp_data.ph_velocity / 2; exp_data.ph_velocity]; %2
         sequence.common.probe_list = int64(1);
         N_Pm = length(sequence.common.probe_list); %number of probes used in sequence
         
@@ -63,7 +63,7 @@ for fi = 1:length(input_exp_data_fnames)
     
     %generate frame data
     N_Fm = 1; %number of frames added at a time
-    frame.probe_position =      repmat([1, 0, 0]', [1, N_Bm, N_Pm, N_Fm]);%3×N_(B,m)×N_(P,m)×N_(F,m)
+    frame.probe_position =       repmat([1, 0, 0]', [1, N_Bm, N_Pm, N_Fm]);%3×N_(B,m)×N_(P,m)×N_(F,m)
     frame.probe_x_direction =    repmat([1, 0, 0]', [1, N_Bm, N_Pm, N_Fm]);%3×N_(B,m)×N_(P,m)×N_(F,m)
     frame.probe_y_direction =    repmat([0, 1, 0]', [1, N_Bm, N_Pm, N_Fm]);%3×N_(B,m)×N_(P,m)×N_(F,m)
     frame.mfmc_data = exp_data.time_data; %N_(T,m)×N_(A,m)×N_(F,m)
