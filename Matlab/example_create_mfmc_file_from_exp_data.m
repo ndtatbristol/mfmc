@@ -3,9 +3,9 @@ close all;
 clc;
 % restoredefaultpath;
 
-global template_path
+% global template_path
 
-template_path = ['..' filesep, 'Template'];
+template_fname = ['..' filesep, 'Template'];
 input_exp_data_fnames = 'X:\Individuals\Paul\2012-06-22 QNDE data - weld scan\15 deg crack, offset *mm.mat';
 fname = ['..', filesep, 'Example MFMC files', filesep, 'generated from exp_data files.mfmc'];
 template_fname = 'MFMC template v1.2.json';

@@ -19,8 +19,7 @@ for ii = 1:length(hdf5_locations)
 
     %following will be entered for anything not found in template, e.g.
     %user data
-    if isempty(template_structure)
-        template_structure = [];
+    if ~template_structure.valid || template_structure.user_field
         template_structure.location = hdf5_location;
         template_structure.dataset = 1;
         template_structure.mandatory = 0;

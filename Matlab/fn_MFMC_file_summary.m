@@ -34,7 +34,7 @@ if nargout == 0
     fprintf('    Sequences (%i):\n', length(mfmc_indices));
     for ii = 1:length(mfmc_indices)
         sequence = fn_MFMC_read_sequence(fname, ii);
-        fprintf('%8i: %i frames (%i time points x %i A-scans)', ii, sequence.N_Fm,  sequence.N_Tm, length(sequence.common.firing_index));
+        fprintf('%8i: %i frames (%i time points x %i A-scans)', ii, sequence.N_Fm,  sequence.N_Tm, sequence.N_Am);
         if isfield(sequence.common, 'operator')
             fprintf([' performed by ', sequence.common.operator]);
         end

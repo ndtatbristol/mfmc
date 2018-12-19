@@ -24,7 +24,7 @@ errors = fn_MFMC_recursive_error_check_against_template(fname);
 %Stage 3 - TODO - check all content is present (e.g. probes referenced are
 %present in file, element numbers referenced to not exceed physical element
 %numbers etc. Need language to describe these checks in json file.
-% errors2 = fn_MFMC_check_numerical_values(fname);
+errors2 = fn_MFMC_check_numerical_values(fname);
 
 
 switch display_results

@@ -59,6 +59,7 @@ try
     success = 1;
 catch
     fprintf('Error writing to file in fn_MFMC_add_to_file function\n');
+    keyboard
     success = 0;
 end
 end

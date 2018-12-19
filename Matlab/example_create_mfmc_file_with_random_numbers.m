@@ -1,27 +1,27 @@
 clear;
 close all;
 clc;
-% restoredefaultpath;
+restoredefaultpath;
 
 global template_path
-
+% 
 template_path = ['..' filesep, 'Template'];
 fname = ['..', filesep, 'Example MFMC files', filesep, 'from random numbers.mfmc'];
-template_fname = 'MFMC template v1.2.json';
+template_fname = '1.2 Beta.json';
 
-N_P = 10; %number of probes
+N_P = 3; %number of probes
+N_Ep_max = 32; %Max elements in any probe
+
 N_M = 2; %number of sequences
+N_Tm_max = 200; %max time points in any sequence
+N_Am_max = 256; %max A-scans per frame in any sequence
+N_Lm_max = 32; %max number of focal laws in any sequence
+N_Clm_max = 1; %max number of entries in any focal law
+N_Bm_max = 32; %max firing events per frame in any sequence
+
 N_F_to_add = 2; %number of frame blocks to add
-N_Tm = 200; %time points in m-th sequence
-N_Am = 256; %A-scans per frame in m-th sequence
 N_Fm = 3; %Frames per block in m-th sequence
-N_Ep = 32; %Elements in p-th probe
-N_Bm = 32; %Transmission events per frame in m-th sequence
-% N_Pm = 4; %Number of probes in m-th sequence
-N_TEtm = [3, 5, 7]; %Number of elements in t-th transmit focal law in m-th sequence
-N_REtm = [4, 6, 8]; %Number of elements in r-th receive focal law in m-th sequence
 raw_data_type = 'complex';
-complex = 1;
 
 %--------------------------------------------------------------------------
 
@@ -29,22 +29,28 @@ complex = 1;
 success = fn_MFMC_create_new_file(fname, template_fname);
 
 %generate probe data
+N_Ep = randi(N_Ep_max, N_P, 1); %elements in each probe 
 for ii = 1:N_P
-    probe(ii) = fn_generate_dummy_probe_data(N_Ep);
+    probe(ii) = fn_generate_dummy_probe_data(N_Ep(ii));
 end
 
 %generate sequence data and a block of frames for each one
 for ii = 1:N_M
-    sequence(ii) = fn_generate_dummy_sequence_data(N_Ep, N_Am, N_TEtm, N_REtm, N_P);
-    N_Pm = length(sequence(ii).common.probe_list);
-    frame(ii) = fn_generate_dummy_frame_data(N_Tm, N_Am, N_Fm, N_Bm, N_Pm, raw_data_type);
+%     sequence(ii) = fn_generate_dummy_sequence_data(N_Ep, N_Am, N_TEtm, N_REtm, N_P);
+    N_Pm = randi(N_P, 1, 1); %number of probes involved
+    N_Am = randi(N_Am_max, 1, 1); %A-scans per frame
+    N_Lm = randi(N_Lm_max, 1, 1); %focal laws per frame
+    sequence(ii) = fn_generate_dummy_sequence_data(N_Ep, N_Am, N_Lm, N_Clm_max, N_Pm);
+    
+    N_Tm = randi(N_Tm_max, 1, 1); %time points
+    frame(ii) = fn_generate_dummy_frame_data(N_Tm, N_Am, N_Fm, N_Bm_max, N_Pm, raw_data_type);
 end
 
 %Uncomment one of following to introduce deliberate errors into MFMC file
 %to test fn_MFMC_check_file function
 % sequence(1).common = rmfield(sequence(1).common, 'transmit_focal_law'); % removal of optional group
 % sequence(1).common.transmit_focal_law = rmfield(sequence(1).common.transmit_focal_law, 'delay'); % removal of mandatory dataset in optional group
-sequence(1).common.transmit_probe = sequence(1).common.transmit_probe(1:end-1);% removal of end of dataset to cause size mismatch
+% sequence(1).common.transmit_probe = sequence(1).common.transmit_probe(1:end-1);% removal of end of dataset to cause size mismatch
 
 %--------------------------------------------------------------------------
 
@@ -67,6 +73,10 @@ end
 
 %--------------------------------------------------------------------------
 
+[errors, warnings] = fn_MFMC_check_file(fname);
+
+%--------------------------------------------------------------------------
+
 fn_MFMC_file_summary(fname);
 
-[errors, warnings] = fn_MFMC_check_file(fname);
+

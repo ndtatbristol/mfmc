@@ -20,20 +20,20 @@ if ~exist(fname)
 end
 
 try 
-    template_fname_in_file = h5readatt(fname, '/', 'TEMPLATE_FILENAME');
+    file_version = h5readatt(fname, '/', 'VERSION');
 catch
-    fprintf('Failed to read template filename from file\n');
+    fprintf('Failed to read version from file\n');
     return
 end
 
-current_template_fname = fn_MFMC_utilities([], [], 'template filename');
-if ~isempty(current_template_fname) && strcmp(current_template_fname, template_fname_in_file)
+template_version = fn_MFMC_utilities([], [], 'template version');
+if ~isempty(template_version) && strcmp(template_version, file_version)
     success = 1;
     return
 end
 
 try 
-    template = jsondecode(fileread([template_path, filesep, template_fname_in_file]));
+    template = jsondecode(fileread([template_path, filesep, file_version, '.json']));
 catch
     fprintf('Failed to read required template file\n');
     return

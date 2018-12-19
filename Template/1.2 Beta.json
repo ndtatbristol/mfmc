@@ -1,6 +1,6 @@
 {
 
-"version": "Beta 1.2",
+"version": "1.2 Beta",
 
 "probe_root": "/PROBE<p>", 
 "mfmc_root": "/MFMC<m>",
@@ -184,7 +184,7 @@
     "hdf5_class": "H5T_INTEGER",
     "dimension": ["N_A<m>"]},
 
-{   "location": "/MFMC<m>/COMMON/PROBE_LIST",
+{   "location": "/MFMC<m>/COMMON/PROBE_INDEX",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
@@ -266,25 +266,25 @@
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
-    "dimension": ["N_E<m><l>"]},
+    "dimension": ["N_C<m><l>"]},
 
 {   "location": "/MFMC<m>/COMMON/LAW<l>/ELEMENT",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
-    "dimension": ["N_E<m><l>"]},
+    "dimension": ["N_C<m><l>"]},
 
 {   "location": "/MFMC<m>/COMMON/LAW<l>/DELAY",
     "dataset": true,
     "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": ["N_E<m><l>"]},
+    "dimension": ["N_C<m><l>"]},
 
 {   "location": "/MFMC<m>/COMMON/LAW<l>/WEIGHTING",
     "dataset": true,
     "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": ["N_E<m><l>"]},
+    "dimension": ["N_C<m><l>"]}
 
 ]
 

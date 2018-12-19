@@ -17,10 +17,10 @@ function success = fn_MFMC_create_new_file(fname, template_fname)
 %   the information for all sequences in the file
 %--------------------------------------------------------------------------
 
-global template_path
-
 success = 0;
 
+global template_path
+ 
 %Load template
 try
     template = jsondecode(fileread([template_path, filesep, template_fname]));
@@ -43,9 +43,6 @@ end
 
 %Write the version and template_filename attributes to file
 root_data.version = template.version;
-[~, t, e] = fileparts(template_fname);
-root_data.template_filename = [t, e];
-% root_data.template_filename = template_fname;
 success = fn_MFMC_add_from_matlab_according_to_template(fname, root_data, '');
 end
 

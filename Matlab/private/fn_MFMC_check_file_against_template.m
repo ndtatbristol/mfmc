@@ -49,9 +49,9 @@ if template_struct.dataset
             %need to replace symbols in dimension with numeric values from
             %file location where possible
             tmp.dim_name = template_struct.dimension{ii};
-            [a,b]=regexp(file_location, '<\d+?>');
-            for jj = 1:length(a)
-                 tmp.dim_name = regexprep(tmp.dim_name, template_struct.location(a(jj):b(jj)), file_location(a(jj):b(jj)));
+            tmp2 = fn_MFMC_utilities(file_location, template_struct.location, 'match numeric indices in A to symbolic indices in B');
+            for jj = 1:length(tmp2)
+                tmp.dim_name = regexprep(tmp.dim_name, tmp2{jj}.name, tmp2{jj}.value);
             end
             tmp.file_location = file_location;
             tmp.value = info.Dataspace.Size(ii);
