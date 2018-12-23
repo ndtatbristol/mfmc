@@ -1,15 +1,14 @@
 {
 
-"version": "1.2 Beta",
+"version": "1.0.0-Beta",
 
 "probe_root": "/PROBE<p>", 
 "mfmc_root": "/MFMC<m>",
 "mfmc_data": ["/MFMC<m>/MFMC_DATA", "/MFMC<m>/MFMC_DATA_IM"],
-"user_locations": ["/USER", "/PROBE<p>/USER", "/MFMC<m>/COMMON/USER"],
 "index_start_char": "<",
 "index_end_char": ">",
 
-"expandable_dimension": ["N_F<m>"],
+"expandable_dimension": ["N_F<m>", "N_B<m>"],
 
 "must_be_drawn_from": [
     ["/MFMC<m>/COMMON/TRANSMIT_PROBE", "<p>"],
@@ -148,7 +147,7 @@
     "hdf5_class": ["H5T_FLOAT", "H5T_INTEGER"],
     "dimension": ["N_T<m>", "N_A<m>", "N_F<m>"]},
 
-{   "location": "/MFMC<m>/FIRING_INDEX",
+{   "location": "/MFMC<m>/POSITION_INDEX",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
@@ -262,29 +261,29 @@
     "hdf5_class": "H5T_STRING",
     "dimension": [1]},
 
-{   "location": "/MFMC<m>/COMMON/LAW<l>/PROBE",
+{   "location": "/MFMC<m>/COMMON/LAW<k>/PROBE",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
-    "dimension": ["N_C<m><l>"]},
+    "dimension": ["N_C<m><k>"]},
 
-{   "location": "/MFMC<m>/COMMON/LAW<l>/ELEMENT",
+{   "location": "/MFMC<m>/COMMON/LAW<k>/ELEMENT",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
-    "dimension": ["N_C<m><l>"]},
+    "dimension": ["N_C<m><k>"]},
 
-{   "location": "/MFMC<m>/COMMON/LAW<l>/DELAY",
+{   "location": "/MFMC<m>/COMMON/LAW<k>/DELAY",
     "dataset": true,
     "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": ["N_C<m><l>"]},
+    "dimension": ["N_C<m><k>"]},
 
-{   "location": "/MFMC<m>/COMMON/LAW<l>/WEIGHTING",
+{   "location": "/MFMC<m>/COMMON/LAW<k>/WEIGHTING",
     "dataset": true,
     "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": ["N_C<m><l>"]}
+    "dimension": ["N_C<m><k>"]}
 
 ]
 

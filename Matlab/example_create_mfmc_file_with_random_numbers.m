@@ -7,7 +7,7 @@ global template_path
 % 
 template_path = ['..' filesep, 'Template'];
 fname = ['..', filesep, 'Example MFMC files', filesep, 'from random numbers.mfmc'];
-template_fname = '1.2 Beta.json';
+template_fname = '1.0.0-Beta.json';
 
 N_P = 3; %number of probes
 N_Ep_max = 32; %Max elements in any probe

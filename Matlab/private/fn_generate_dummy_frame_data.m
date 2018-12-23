@@ -13,7 +13,7 @@ frame.probe_position =      rand(3, N_Pm, sum(N_Bm) * N_Fm);    %3×N_(B,m)×N_(P,
 frame.probe_x_direction =   rand(3, N_Pm, sum(N_Bm) * N_Fm);    %3×N_(B,m)×N_(P,m)×N_(F,m)
 frame.probe_y_direction =   rand(3, N_Pm, sum(N_Bm) * N_Fm);    %3×N_(B,m)×N_(P,m)×N_(F,m)
 frame.mfmc_data =           rand(N_Tm, N_Am, N_Fm);             %N_(T,m)×N_(A,m)×N_(F,m)
-frame.firing_index = int64(zeros(N_Am, N_Fm));
+frame.position_index = int64(zeros(N_Am, N_Fm));
 for ii = 1:N_Fm
     if ii == 1
         jj = [1:N_Bm(ii)];
@@ -21,7 +21,7 @@ for ii = 1:N_Fm
         jj = [1:N_Bm(ii)] + sum(N_Bm(1:ii - 1));
     end
         
-    frame.firing_index(:, ii) = jj(randi(N_Bm(ii), N_Am, 1));
+    frame.position_index(:, ii) = jj(randi(N_Bm(ii), N_Am, 1));
 end
 
 switch raw_data_type

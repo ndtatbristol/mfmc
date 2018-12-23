@@ -1,4 +1,4 @@
-function [errors, warnings] = fn_MFMC_check_file(fname, varargin)
+function [errors, extra_datafields] = fn_MFMC_check_file(fname, varargin)
 %SUMMARY
 %   Checks MFMC file against template (e.g. from json file)
 
@@ -9,13 +9,14 @@ else
 end
 
 if ~fn_MFMC_prepare_to_write_or_read_file(fname)
+    errors{1} = 'Failed to open file';
     return
 end
 
 %Stage 1 - identify any fields in file that are not in template -
 %these throw warnings but no errors
 
-warnings = fn_MFMC_check_for_extra_fields(fname);
+extra_datafields = fn_MFMC_check_for_extra_fields(fname);
 
 %Stage 2 - go through template and check for missing mandatory fields or
 %errors in any field
@@ -37,20 +38,20 @@ switch display_results
                 fprintf(['%3i. ', errors{ii}, '\n'], ii);
             end
         end
-        fprintf('Warnings\n');
-        if isempty(warnings)
+        fprintf('Datafields not part of MFMC specification\n');
+        if isempty(extra_datafields)
             fprintf('     None\n');
         else
-            for ii = 1:length(warnings)
-                fprintf(['%3i. ', warnings{ii}, '\n'], ii);
+            for ii = 1:length(extra_datafields)
+                fprintf(['%3i. ', extra_datafields{ii}, '\n'], ii);
             end
         end
        
     case 'terse'
-        if isempty(errors) && isempty(warnings)
+        if isempty(errors) && isempty(extra_datafields)
             fprintf('File OK\n');
         else
-            fprintf([str, 'File has %i Errors and %i Warnings\n'], length(errors), length(warnings));
+            fprintf([str, 'File has %i rrrors and %i extra datafields\n'], length(errors), length(extra_datafields));
         end
 end
 
