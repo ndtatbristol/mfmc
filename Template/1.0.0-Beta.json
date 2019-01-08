@@ -147,7 +147,7 @@
     "hdf5_class": ["H5T_FLOAT", "H5T_INTEGER"],
     "dimension": ["N_T<m>", "N_A<m>", "N_F<m>"]},
 
-{   "location": "/MFMC<m>/POSITION_INDEX",
+{   "location": "/MFMC<m>/PROBE_PLACEMENT_INDEX",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_INTEGER",
@@ -157,19 +157,19 @@
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": [3, "N_P<m>", "N_B<m>"]},
+    "dimension": [3, "N_Q<m>", "N_B<m>"]},
 
 {   "location": "/MFMC<m>/PROBE_X_DIRECTION",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": [3, "N_P<m>", "N_B<m>"]},
+    "dimension": [3, "N_Q<m>", "N_B<m>"]},
 
 {   "location": "/MFMC<m>/PROBE_Y_DIRECTION",
     "dataset": true,
     "mandatory": true,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": [3, "N_P<m>", "N_B<m>"]},
+    "dimension": [3, "N_Q<m>", "N_B<m>"]},
 
 {   "location": "/MFMC<m>/COMMON/TRANSMIT_LAW_INDEX",
     "dataset": true,

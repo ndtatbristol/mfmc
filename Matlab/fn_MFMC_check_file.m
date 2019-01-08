@@ -15,7 +15,6 @@ end
 
 %Stage 1 - identify any fields in file that are not in template -
 %these throw warnings but no errors
-
 extra_datafields = fn_MFMC_check_for_extra_fields(fname);
 
 %Stage 2 - go through template and check for missing mandatory fields or

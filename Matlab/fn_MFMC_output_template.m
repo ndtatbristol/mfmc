@@ -59,7 +59,7 @@ for ii = 1:length(template.structure)
                 tmp = [tmp, template.structure(ii).dimension{jj}];
             end
             if jj < length(template.structure(ii).dimension)
-                tmp = [tmp, ', '];
+                tmp = [tmp, ','];
             end
         end
     else

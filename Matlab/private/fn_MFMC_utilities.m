@@ -56,26 +56,15 @@ switch operation
         else
             input_was_cell = 1;
         end
-        user_template_list_pattern = regexprep(template.user_locations, any_index_pattern, any_index_pattern_for_regexp_insert);
+%         user_template_list_pattern = regexprep(template.user_locations, any_index_pattern, any_index_pattern_for_regexp_insert);
         file_location_pattern = regexprep(A, numeric_index_pattern, any_index_pattern_for_regexp_insert);
         for ii = 1:length(A)
             tmp = regexp(template_location_list, ['^', file_location_pattern{ii}, '$'], 'match', 'once');
             jj = find(cell2mat(cellfun(@(c) ~isempty(c), tmp, 'UniformOutput', false)));
             if ~isempty(jj)
                 output{ii} = template.structure(jj);
-                output{ii}.valid = true;
-                output{ii}.user_field = false;
             else
-                %check if it's a user location
-                output{ii}.valid = false;
-                for kk = 1:length(user_template_list_pattern)
-                    output{ii}.valid = output{ii}.valid | ~isempty(regexp(A{ii}, ['^', user_template_list_pattern{kk}]));
-                end
-                if output{ii}.valid
-                    output{ii}.user_field = true;
-                else
-                    output{ii}.user_field = false;
-                end
+                output{ii} = [];
             end
         end
         output = reshape(output, size(A));
