@@ -151,6 +151,11 @@ switch operation
             '\($1\)');
         output = regexprep(lower(output), '/', '.');
         
+    case 'remove trailing index from list A'
+        output = regexprep(A, ...
+            [symbolic_index_pattern, '$'], ...
+            '');
+        
         
 
 end

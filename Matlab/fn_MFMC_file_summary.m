@@ -57,7 +57,10 @@ if nargout == 0
     end
 else
     varargout{1} = fn_MFMC_read_probe(fname);
-    varargout{2} = fn_MFMC_read_sequence(fname);
+    for ii = 1:length(mfmc_indices)
+        sequence(ii) = fn_MFMC_read_sequence(fname, ii);
+    end
+    varargout{2} = sequence;
 end
 
 end
