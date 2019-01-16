@@ -9,7 +9,7 @@ global template_path
 use_case = '2. single array, single sequence, three frames';
 
 template_path = ['..' filesep, 'Template'];
-template_fname = '1.0.0-Beta.json';
+template_fname = '2.0.0-Beta.json';
 
 %--------------------------------------------------------------------------
 switch use_case

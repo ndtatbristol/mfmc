@@ -33,7 +33,7 @@ sequence.common.specimen_velocity = rand(2, 1); %2
 
 sequence.common.tag = 'An MFMC sequence';
 sequence.common.operator = 'Random person';
-sequence.common.date_and_time = datestr(datetime('now'));
+sequence.common.date_and_time = datestr(datetime('now'), 31);
 sequence.common.user.numbers = rand(5);
 sequence.common.user.details = 'Some user data about this sequence';
 end

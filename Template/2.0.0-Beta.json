@@ -1,6 +1,6 @@
 {
 
-"version": "1.0.0-Beta",
+"version": "2.0.0-Beta",
 
 "probe_root": "/PROBE<p>", 
 "mfmc_root": "/MFMC<m>",
@@ -89,7 +89,7 @@
 
 {   "location": "/PROBE<p>/CENTRE_FREQUENCY",
     "dataset": false,
-    "mandatory": true,
+    "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
     "dimension": [1]},
 
@@ -241,7 +241,7 @@
     "dataset": false,
     "mandatory": false,
     "hdf5_class": "H5T_FLOAT",
-    "dimension": [2, "N_F<m>"]},
+    "dimension": [3, "N_F<m>"]},
 
 {   "location": "/MFMC<m>/COMMON/FILTER_DESCRIPTION",
     "dataset": false,
