@@ -27,6 +27,12 @@
 
 "structure": [
 
+{   "location": "/TYPE",
+    "dataset": false,
+    "mandatory": true,
+    "hdf5_class": "H5T_STRING",
+    "dimension": [1]},
+
 {   "location": "/VERSION",
     "dataset": false,
     "mandatory": true,

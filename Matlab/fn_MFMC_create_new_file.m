@@ -43,6 +43,7 @@ end
 
 %Write the version and template_filename attributes to file
 root_data.version = template.version;
+root_data.type = 'MFMC';
 success = fn_MFMC_add_from_matlab_according_to_template(fname, root_data, '');
 end
 
