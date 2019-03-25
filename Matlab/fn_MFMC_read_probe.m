@@ -1,37 +1,22 @@
-function probe = fn_MFMC_read_probe(fname, varargin)
-%SUMMARY
-%   Reads all the information about a specified probe in a file (or
-%   all probes if second argument is omitted or empty).
-%AUTHOR
-%   Paul Wilcox, November 2018
+function PROBE = fn_MFMC_read_probe(MFMC, ref_or_index_or_loc)
+%SUMMMAY
+%   Reads probe data from file. All datasets in probe group are returned.
+%   No checks are performed on data, other than checking that TYPE == PROBE
 %INPUTS
-%   fname - name of MFMC file 
-%   [probe_index] - number of sequence to read
+%   MFMC - MFMC structure (see fn_MFMC_open_file)
+%   ref_or_index_or_loc - HDF5 reference, index or location (relative to
+%   MFMC.root_path) of probe to read
 %OUTPUTS
-%   probe - structured variable containing all the information about
-%   specified probe. If no probe_index was specified, then this will be an 
-%   array, probe(1...N_P), containing the information for all probes in 
-%   the file
+%   PROBE - structured variable containing same fields as found in file. 
 %--------------------------------------------------------------------------
 
-if ~fn_MFMC_prepare_to_write_or_read_file(fname)
-    return
-end
+probe_path = [fn_hdf5_ref_or_index_or_loc_to_loc(ref_or_index_or_loc, MFMC.fname, [MFMC.root_path, MFMC.probe_name_template]), '/'];
 
-if isempty(varargin)
-    probe_index = [];
-else
-    probe_index = varargin{1};
-end
+PROBE = fn_hdf5_read_to_matlab(MFMC.fname, probe_path);
 
-probe_root = fn_MFMC_utilities([], [], 'probe root');
-
-if isempty(probe_index)
-    probe_root = fn_MFMC_utilities(probe_root, [], 'remove trailing index from list A');
-    probe = fn_MFMC_read_into_matlab_structure(fname, probe_root);
-else
-    probe_root = fn_MFMC_utilities(probe_root, probe_index, 'replace symbolic index in list A with number B');
-    probe = fn_MFMC_read_into_matlab_structure(fname, probe_root);
+if ~strcmp(PROBE.TYPE, 'PROBE')
+    error('Data does not have TYPE = PROBE');
 end
 
 end
+
