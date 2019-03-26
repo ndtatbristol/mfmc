@@ -10,7 +10,7 @@ function law = fn_MFMC_read_law(MFMC, ref)
 %--------------------------------------------------------------------------
 
 if strcmp(class(ref), 'uint8') && all(size(ref) == [1, 8])
-    law_path = fn_hdf5_ref_to_location(MFMC.fname, ref);
+    law_path = fn_hdf5_ref_or_index_or_loc_to_loc(ref, MFMC.fname, []);
 else
     error('Laws must be accessed by HDF5 reference');
 end
