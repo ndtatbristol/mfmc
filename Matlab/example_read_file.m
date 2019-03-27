@@ -11,7 +11,7 @@ restoredefaultpath;
 
 
 %--------------------------------------------------------------------------
-fname = 'test.mfmc';
+fname = 'example mfmc file.mfmc';
 
 %Open the file and obtain Matlab MFMC structure variable for use in later
 %functions

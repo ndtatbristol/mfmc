@@ -10,7 +10,7 @@ clc;
 restoredefaultpath;
 
 %Name of MFMC file to create
-fname = 'test.mfmc';
+fname = 'example mfmc file.mfmc';
 
 %--------------------------------------------------------------------------
 %CREATING FILE
