@@ -4,15 +4,13 @@
 
 %First create the file then clear everything and restore path to default
 run('example_create_file'); 
-clear;
+clearvars -except fname;
 close all;
 clc;
 restoredefaultpath;
 
 
 %--------------------------------------------------------------------------
-fname = 'example mfmc file.mfmc';
-
 %Open the file and obtain Matlab MFMC structure variable for use in later
 %functions
 MFMC = fn_MFMC_open_file(fname);

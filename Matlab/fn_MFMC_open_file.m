@@ -4,7 +4,8 @@ function MFMC = fn_MFMC_open_file(fname, varargin)
 %   created. If file exists but non-existent root path is specified, the 
 %   path is created in the file.
 %INPUTS
-%   fname - name (including path if necessary of file)
+%   fname - full path and name of file (path is needed to avoid erratic
+%   behaviour due to way Matlab HDF5 functions work)
 %   root_path - optional location of MFMC data in file. Default is root,
 %   i.e. '/'
 %OUTPUTS

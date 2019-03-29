@@ -16,4 +16,10 @@ else
     error('Invalid reference');
 end
 
+try 
+    h5info(fname, loc);
+catch
+    error('No matching object in file');
+end
+
 end
