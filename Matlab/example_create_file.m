@@ -47,7 +47,7 @@ PROBE.ELEMENT_SHAPE = ones(1, el_number);                                       
 PROBE = fn_MFMC_add_probe(MFMC, PROBE);                                                                 %PROBE returned has extra fields, including the HDF5 object reference (PROBE.ref) and location in file (PROBE.location)
 
 %Example of adding user attribute to probe in file once probe has been added
-fn_hdf5_create_attribute(MFMC.fname, [PROBE.location, 'USER_ATTRIBUTE'], 'Special information');
+fn_MFMC_add_user_attribute(MFMC, PROBE.location, 'USER_ATTRIBUTE', 'Special information');
 
 %--------------------------------------------------------------------------
 %CREATING A SEQUENCE
@@ -92,7 +92,7 @@ SEQUENCE.receive_law_index = [1: el_number];                                    
 SEQUENCE = fn_MFMC_add_sequence(MFMC, SEQUENCE);                                                        %SEQUENCE returned has extra fields, including the HDF5 object reference (SEQUENCE.ref) and location in file (SEQUENCE.location)
 
 %Example of adding user dataset to sequnce in file once sequence has been added
-fn_hdf5_create_dataset(MFMC.fname, [SEQUENCE.location, 'USER_DATASET'], rand(10,10));
+fn_MFMC_add_user_dataset(MFMC, SEQUENCE.location, 'USER_DATASET', rand(10,10));
 %--------------------------------------------------------------------------
 %ADD TWO FRAMES OF DATA TO SEQUENCE
 
