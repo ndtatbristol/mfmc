@@ -97,7 +97,7 @@ fn_MFMC_add_user_dataset(MFMC, SEQUENCE.location, 'USER_DATASET', rand(10,10));
 %ADD TWO FRAMES OF DATA TO SEQUENCE
 
 no_a_scans_per_frame = el_number;
-no_time_pts = 1000;
+no_time_pts = 100000;
 
 FRAME.MFMC_DATA = int8(randi(2^8, no_time_pts, no_a_scans_per_frame)-2^7);                              %random int8 data to represent physical data
 FRAME.PROBE_POSITION = [0; 0; 0];                                                                       %PCS origin is at GCS origin
@@ -105,12 +105,13 @@ FRAME.PROBE_X_DIRECTION = [1; 0; 0];                                            
 FRAME.PROBE_Y_DIRECTION = [0; 1; 0];                                                                    %PCS y-axis is aligned to GCS y-axis
 FRAME.PROBE_PLACEMENT_INDEX = ones(no_a_scans_per_frame, 1);                                            %refer to first probe position for all A-scans in frame
 
+
 %Add the frame to the previous sequence
 fn_MFMC_add_frame(MFMC, SEQUENCE.ref, FRAME);
 
 %Generate a second frame of data when the probe is translated by 3mm in x
 %direction of GCS (everything else remains same)
-FRAME.MFMC_DATA = int8(randi(2^8, no_time_pts, no_a_scans_per_frame)-2^7);                              %some new random int8 data to represent physical data
+FRAME.MFMC_DATA = double(randi(2^8, no_time_pts, no_a_scans_per_frame)-2^7);                              %some new random int8 data to represent physical data
 FRAME.PROBE_POSITION = [3e-3; 0; 0];
 FRAME.PROBE_PLACEMENT_INDEX = ones(no_a_scans_per_frame, 1) * 2;                                        %refer to second probe position for all A-scans in frame
 

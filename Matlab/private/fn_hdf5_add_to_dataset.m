@@ -42,18 +42,25 @@ else
     expandable_dimension = varargin{3};
 end
 
+%If deflate_value specified
+if length(varargin) < 4 || isempty(varargin{4})
+    deflate_value = [];
+else
+    deflate_value = varargin{4};
+end
+
 try
     tmp = h5info(fname, location);
     count = ones(size(tmp.Dataspace.Size));
     count(1:numel(size(obj))) = size(obj);
     start = ones(size(tmp.Dataspace.Size));
     for jj = 1:length(  expandable_dimension)
-     start(expandable_dimension(jj)) = tmp.Dataspace.Size(expandable_dimension(jj)) + 1;
+        start(expandable_dimension(jj)) = tmp.Dataspace.Size(expandable_dimension(jj)) + 1;
     end
     h5write(fname, location, obj, start, count);
 catch
     %create if not present
-    fn_hdf5_create_dataset(fname, location, obj, type, max_size, expandable_dimension);
+    fn_hdf5_create_dataset(fname, location, obj, type, max_size, expandable_dimension, deflate_value);
 end
 
 

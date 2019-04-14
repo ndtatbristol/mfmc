@@ -26,6 +26,11 @@ function SEQUENCE = fn_MFMC_add_sequence(MFMC, SEQUENCE)
 %       .location - complete path to sequence group in file
 %--------------------------------------------------------------------------
 
+% if length(varargin) < 1
+%     deflate_level = 5;
+% else
+%     deflate_level = varargin{1};
+% end
 
 if ~isfield(SEQUENCE, 'name')
     [SEQUENCE.name,  SEQUENCE.index] = fn_hdf5_next_group_name(MFMC.fname, MFMC.root_path, MFMC.sequence_name_template);
@@ -92,7 +97,7 @@ fn_hdf5_create_entry(SEQUENCE, MFMC.fname, [sequence_path, 'DAC_CURVE'],        
 
 %add MFMC if any present at this point (can be added later anyway)
 if isfield(SEQUENCE, 'FRAME')
-    fn_MFMC_add_frame_to_sequence(MFMC, SEQUENCE.ref, SEQUENCE.FRAME)
+    fn_MFMC_add_frame(MFMC, SEQUENCE.ref, SEQUENCE.FRAME)
 end
 end
 

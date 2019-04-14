@@ -25,6 +25,13 @@ else
     expandable_dimension = varargin{3};
 end
 
+%If deflate_value specified
+if length(varargin) < 4 || isempty(varargin{4})
+    deflate_value = 4;
+else
+    deflate_value = varargin{4};
+end
+
 %set size of any expandable dimension to inf
 for jj = 1:length(expandable_dimension)
     max_size(expandable_dimension(jj)) = inf;
@@ -56,7 +63,11 @@ if strcmp(type, 'hdf5_ref') %special case - must be 8 cols
     
 else
     if ~isempty(chunk_size)
-        h5create(fname, dataset, max_size, 'Datatype', type, 'ChunkSize', chunk_size);
+        if ~isempty(deflate_value)
+            h5create(fname, dataset, max_size, 'Datatype', type, 'ChunkSize', chunk_size, 'Deflate', deflate_value);
+        else
+            h5create(fname, dataset, max_size, 'Datatype', type, 'ChunkSize', chunk_size);
+        end
     else
         h5create(fname, dataset, max_size, 'Datatype', type);
     end
