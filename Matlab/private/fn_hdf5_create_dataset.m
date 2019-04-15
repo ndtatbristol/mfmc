@@ -27,7 +27,7 @@ end
 
 %If deflate_value specified
 if length(varargin) < 4 || isempty(varargin{4})
-    deflate_value = 4;
+    deflate_value = [];
 else
     deflate_value = varargin{4};
 end

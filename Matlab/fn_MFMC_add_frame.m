@@ -13,11 +13,16 @@ function fn_MFMC_add_frame(MFMC, ref_or_index_or_loc, FRAME)
 %       .PROBE_X_DIRECTION
 %       .PROBE_Y_DIRECTION
 %       and optional fields as per the MFMC file specification
+%       Additional optional field .deflate_value can be used to specify
+%       compression level from 0 (none) to 9 (max). If not specified,
+%       default is 4.
 %--------------------------------------------------------------------------
+default_deflate_value = 4;
+
 if isfield(FRAME, 'deflate_value')
     deflate_value = FRAME.deflate_value;
 else
-    deflate_value = [];
+    deflate_value = default_deflate_value;
 end
 
 sequence_path = [fn_hdf5_ref_or_index_or_loc_to_loc(ref_or_index_or_loc, MFMC.fname, [MFMC.root_path, MFMC.sequence_name_template]), '/'];

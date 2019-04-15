@@ -91,7 +91,7 @@ SEQUENCE.receive_law_index = [1: el_number];                                    
 %Add the sequence details to the file
 SEQUENCE = fn_MFMC_add_sequence(MFMC, SEQUENCE);                                                        %SEQUENCE returned has extra fields, including the HDF5 object reference (SEQUENCE.ref) and location in file (SEQUENCE.location)
 
-%Example of adding user dataset to sequnce in file once sequence has been added
+%Example of adding user dataset to sequence in file once sequence has been added
 fn_MFMC_add_user_dataset(MFMC, SEQUENCE.location, 'USER_DATASET', rand(10,10));
 %--------------------------------------------------------------------------
 %ADD TWO FRAMES OF DATA TO SEQUENCE
@@ -104,7 +104,9 @@ FRAME.PROBE_POSITION = [0; 0; 0];                                               
 FRAME.PROBE_X_DIRECTION = [1; 0; 0];                                                                    %PCS x-axis is aligned to GCS x-axis
 FRAME.PROBE_Y_DIRECTION = [0; 1; 0];                                                                    %PCS y-axis is aligned to GCS y-axis
 FRAME.PROBE_PLACEMENT_INDEX = ones(no_a_scans_per_frame, 1);                                            %refer to first probe position for all A-scans in frame
-
+% FRAME.deflate_value = 0; %uncomment to set a compression value from 0
+% (none) to 9 (max), otherwise default of 4 is used. Does not make any
+% difference when data is completely random integers stored as int8 anyway.
 
 %Add the frame to the previous sequence
 fn_MFMC_add_frame(MFMC, SEQUENCE.ref, FRAME);
@@ -121,3 +123,5 @@ fn_MFMC_add_frame(MFMC, SEQUENCE.ref, FRAME);
 %--------------------------------------------------------------------------
 %DISPLAY FILE SUMMARY IN COMMAND WINDOW
 h5disp(fname);
+tmp = dir(fname);
+fprintf('File size: %.2f MB\n', tmp.bytes / 1e6);
