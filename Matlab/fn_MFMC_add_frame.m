@@ -37,6 +37,20 @@ no_probes = size(tmp.PROBE_LIST, 1);
 no_ascans = size(FRAME.PROBE_PLACEMENT_INDEX, 1);
 no_time_pts = size(FRAME.MFMC_DATA, 1);
 
+% Enforce constraint that each MFMC_DATA must be same size and same type
+if (isfield(tmp,'MFMC_DATA'))
+    [no_time_pts_in_file,no_ascans_in_file] = size(tmp.MFMC_DATA);
+    if (no_time_pts_in_file ~= no_time_pts)
+        error('Invalid number of time points in new FRAME, must match with value in MFMC file')
+    end
+    if (no_ascans_in_file ~= no_ascans)
+        error('Invalid number of A-Scans in new FRAME, must match with value in MFMC file')
+    end
+    if (strcmp(class(tmp.MFMC_DATA),class(FRAME.MFMC_DATA))<1)
+        error('Mismatch between new FRAME.MFMC_DATA and stored MFMC_DATA data type');
+    end
+end
+
 fn_hdf5_add_to_dataset(FRAME, MFMC.fname, [sequence_path, 'MFMC_DATA'],             'M', [], [no_time_pts, no_ascans, inf], 3, deflate_value);
 fn_hdf5_add_to_dataset(FRAME, MFMC.fname, [sequence_path, 'MFMC_DATA_IM'],          'O', [], [no_time_pts, no_ascans, inf], 3, deflate_value);
 fn_hdf5_add_to_dataset(FRAME, MFMC.fname, [sequence_path, 'PROBE_PLACEMENT_INDEX'], 'M', [], [no_ascans, inf],              2);
