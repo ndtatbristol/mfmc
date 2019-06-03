@@ -27,6 +27,10 @@ function [SEQUENCE]=fn_MFMC_helper_brain_exp_data_to_sequence(exp_data,PROBE,var
     end
     SEQUENCE.SPECIMEN_VELOCITY = [shear_vel, long_vel];
     
+    if (isfield(exp_data,'water_velocity'))
+        SEQUENCE.WEDGE_VELOCITY=[NaN,exp_data.water_velocity];
+    end
+    
     SEQUENCE.PROBE_LIST = PROBE.ref; %this is the HDF5 object reference
 
     for jj = 1:length(exp_data.array.el_xc)

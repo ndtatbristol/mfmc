@@ -22,6 +22,17 @@ function [SEQUENCE_candidate]=fn_MFMC_helper_add_sequence_if_new(MFMC,SEQUENCE_c
         if (max(abs(SEQUENCE.SPECIMEN_VELOCITY(:)-SEQUENCE_candidate.SPECIMEN_VELOCITY(:)))>1e-7)
             continue;
         end
+        if (isfield(SEQUENCE_candidate,'WEDGE_VELOCITY'))
+            if (~isfield(SEQUENCE,'WEDGE_VELOCITY'))
+                continue;
+            end
+            if (max(isnan(SEQUENCE.WEDGE_VELOCITY(:)) ~= isnan(SEQUENCE_candidate.WEDGE_VELOCITY(:))))
+                continue;
+            end
+            if (max(abs(SEQUENCE.WEDGE_VELOCITY(~isnan(SEQUENCE.WEDGE_VELOCITY))-SEQUENCE_candidate.WEDGE_VELOCITY(~isnan(SEQUENCE_candidate.WEDGE_VELOCITY))))>1e-7)
+                continue;
+            end
+        end
         if (abs(SEQUENCE.TIME_STEP-SEQUENCE_candidate.TIME_STEP)>1e-15)
             continue;
         end
