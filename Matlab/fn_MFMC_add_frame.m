@@ -39,12 +39,12 @@ no_time_pts = size(FRAME.MFMC_DATA, 1);
 
 % Enforce constraint that each MFMC_DATA must be same size and same type
 if (isfield(tmp,'MFMC_DATA'))
-    [no_time_pts_in_file,no_ascans_in_file] = size(tmp.MFMC_DATA);
+    [no_time_pts_in_file,no_ascans_in_file,~] = size(tmp.MFMC_DATA);
     if (no_time_pts_in_file ~= no_time_pts)
-        error('Invalid number of time points in new FRAME, must match with value in MFMC file')
+        error(['Invalid number of time points (',num2str(no_time_pts),') in new FRAME, must match with value in MFMC file (',num2str(no_time_pts_in_file),')'])
     end
     if (no_ascans_in_file ~= no_ascans)
-        error('Invalid number of A-Scans in new FRAME, must match with value in MFMC file')
+        error(['Invalid number of A-scans (',num2str(no_ascans),') in new FRAME, must match with value in MFMC file (',num2str(no_ascans_in_file),')'])
     end
     if (strcmp(class(tmp.MFMC_DATA),class(FRAME.MFMC_DATA))<1)
         warning(['Mismatch between new FRAME.MFMC_DATA (',class(FRAME.MFMC_DATA),') and stored MFMC_DATA (',class(tmp.MFMC_DATA),') data types. Possible data loss']);
