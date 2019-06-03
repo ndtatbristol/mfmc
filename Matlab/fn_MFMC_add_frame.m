@@ -47,7 +47,7 @@ if (isfield(tmp,'MFMC_DATA'))
         error('Invalid number of A-Scans in new FRAME, must match with value in MFMC file')
     end
     if (strcmp(class(tmp.MFMC_DATA),class(FRAME.MFMC_DATA))<1)
-        error('Mismatch between new FRAME.MFMC_DATA and stored MFMC_DATA data type');
+        warning(['Mismatch between new FRAME.MFMC_DATA (',class(FRAME.MFMC_DATA),') and stored MFMC_DATA (',class(tmp.MFMC_DATA),') data types. Possible data loss']);
     end
 end
 
