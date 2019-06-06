@@ -7,16 +7,14 @@ function no_frames = fn_MFMC_get_no_frames(MFMC, ref_or_index_or_loc)
 %OUTPUTS
 %   no_frames - number of frames in sequence
 %--------------------------------------------------------------------------
-sequence_path = [fn_hdf5_ref_or_index_or_loc_to_loc(ref_or_index_or_loc, MFMC.fname, [MFMC.root_path, MFMC.sequence_name_template]), '/'];
 
-try
-    a = h5info(MFMC.fname, [sequence_path, 'MFMC_DATA']);
-    no_frames = a.Dataspace.Size(3);
-catch
-    %case if sequence exists
+dataspace_dim = fn_MFMC_get_data_dimensions(MFMC, ref_or_index_or_loc,'MFMC_DATA');
+
+if (isempty(dataspace_dim))
     no_frames = 0;
+else
+    no_frames = dataspace_dim(3);
 end
-        
-    
+
 
 end
