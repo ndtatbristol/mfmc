@@ -74,7 +74,7 @@ SEQUENCE.PROBE_LIST = PROBE.ref; %this is the HDF5 object reference to the probe
 plane_wave_angle_degrees = 10;
 
 for jj = 1:el_number
-    SEQUENCE.LAW{jj}.ELEMENT = int32(el_number);                                                        %identify individual element
+    SEQUENCE.LAW{jj}.ELEMENT = int32(jj);                                                        %identify individual element
     SEQUENCE.LAW{jj}.PROBE = PROBE.ref;                                                                 %reference to probe
 end
 SEQUENCE.LAW{el_number+1}.ELEMENT = int32([1:el_number]);                                               %identify all elements
