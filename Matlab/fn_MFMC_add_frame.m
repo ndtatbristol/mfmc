@@ -27,6 +27,7 @@ end
 
 sequence_path = [fn_hdf5_ref_or_index_or_loc_to_loc(ref_or_index_or_loc, MFMC.fname, [MFMC.root_path, MFMC.sequence_name_template]), '/'];
 
+tmp = fn_hdf5_read_to_matlab(MFMC.fname, sequence_path); %add exclude MFMC data and anything else not needed to avoid reading it all in
 
 if ~strcmp(tmp.TYPE, 'SEQUENCE')
     error('Invalid sequence');
