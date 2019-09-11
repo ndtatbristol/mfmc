@@ -59,7 +59,8 @@ try
     end
     h5write(fname, location, obj, start, count);
 catch
-    %create if not present
+    %create if not present%%%this should be better to make sure other
+    %errors are properly caught
     fn_hdf5_create_dataset(fname, location, obj, type, max_size, expandable_dimension, deflate_value);
 end
 
