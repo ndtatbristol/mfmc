@@ -30,11 +30,11 @@ function [SEQUENCE]=fn_MFMC_helper_brain_exp_data_to_frame(exp_data,MFMC, SEQUEN
     end
     
     % Get number of current positional vectors in SEQUENCE
-    datasets_to_include = {'PROBE_POSITION'};
-    counter=1;
-    SEQUENCE1 = fn_MFMC_read_sequence_partial(MFMC, SEQUENCE.ref,datasets_to_include);
-    if (isfield(SEQUENCE1,datasets_to_include{1}))
-        counter=size(SEQUENCE1.PROBE_POSITION,3)+1;
+    tmp = fn_MFMC_get_data_dimensions(MFMC, SEQUENCE.ref,'PROBE_POSITION');
+    if (~isempty(tmp))
+        counter = tmp(3);
+    else
+        counter=1;
     end
     
     FRAME.PROBE_PLACEMENT_INDEX = ones(length(exp_data.tx), 1)*counter; 
