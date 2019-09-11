@@ -32,22 +32,26 @@ tmp = fn_hdf5_read_to_matlab(MFMC.fname, sequence_path); %add exclude MFMC data 
 if ~strcmp(tmp.TYPE, 'SEQUENCE')
     error('Invalid sequence');
 end
+tmp = fn_MFMC_get_data_dimensions(MFMC, ref_or_index_or_loc,'PROBE_LIST');
+if (isempty(tmp))
+    error('No probe specified in SEQUENCE.PROBE_LIST')
+end
+no_probes = tmp(1);
 
-no_probes = size(tmp.PROBE_LIST, 1);
 no_ascans = size(FRAME.PROBE_PLACEMENT_INDEX, 1);
 no_time_pts = size(FRAME.MFMC_DATA, 1);
 
-% Enforce constraint that each MFMC_DATA must be same size and same type
-if (isfield(tmp,'MFMC_DATA'))
-    [no_time_pts_in_file,no_ascans_in_file,~] = size(tmp.MFMC_DATA);
+tmp = fn_MFMC_get_data_dimensions(MFMC, ref_or_index_or_loc,'MFMC_DATA');
+% Enforce constraint that each MFMC_DATA must be same size
+if (~isempty(tmp))
+    % MFMC_DATA already exists in file
+    no_time_pts_in_file=tmp(1);
+    no_ascans_in_file=tmp(2);
     if (no_time_pts_in_file ~= no_time_pts)
         error(['Invalid number of time points (',num2str(no_time_pts),') in new FRAME, must match with value in MFMC file (',num2str(no_time_pts_in_file),')'])
     end
     if (no_ascans_in_file ~= no_ascans)
         error(['Invalid number of A-scans (',num2str(no_ascans),') in new FRAME, must match with value in MFMC file (',num2str(no_ascans_in_file),')'])
-    end
-    if (strcmp(class(tmp.MFMC_DATA),class(FRAME.MFMC_DATA))<1)
-        warning(['Mismatch between new FRAME.MFMC_DATA (',class(FRAME.MFMC_DATA),') and stored MFMC_DATA (',class(tmp.MFMC_DATA),') data types. Possible data loss']);
     end
 end
 
