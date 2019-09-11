@@ -1,13 +1,14 @@
-function exp_data = fn_MFMC_helper_frame_to_brain_exp_data(fname, varargin)
+function exp_data = fn_MFMC_helper_frame_to_brain_exp_data(MFMC, varargin)
 %SUMMARY
 %   Returns specified frame of FMC data from specified sequence in MFMC
 %   file in Bristol Matlab exp_data format. If sequence not specified the
 %   first one found in the file will be used, and if frame_index is not
 %   specified the first frame in the sequence will be returned.
 %INPUTS
-%   fname - filename (and path) of MFMC file
-%   [seq_ref] - reference to desired sequence in MFMC file. If empty
-%   (default) then first sequence in file is used
+%   MFMC - MFMC structure (see fn_MFMC_open_file)
+%   [ref_or_index_or_loc] - HDF5 reference, index or location (relative to
+%   MFMC.root_path) of sequence to read. If empty (default) then first 
+%   sequence in file is used
 %   [frame_index] - index of frame in sequence to return. If not specified
 %   or empty or null, first frame is used.
 %OUTPUTS
@@ -15,9 +16,9 @@ function exp_data = fn_MFMC_helper_frame_to_brain_exp_data(fname, varargin)
 %--------------------------------------------------------------------------
 
 if length(varargin) < 1
-    seq_ref = [];
+    ref_or_index_or_loc = [];
 else
-    seq_ref = varargin{1};
+    ref_or_index_or_loc = varargin{1};
 end
 if length(varargin) < 2
     frame_index = [];
@@ -25,33 +26,33 @@ else
     frame_index = varargin{2};
 end
 
-MFMC.fname = fname; 
-MFMC.root_path = '/';
-MFMC.sequence_name_template = ''; %not needed, but field needs to exist
-MFMC.probe_name_template = ''; %not needed, but field needs to exist
-MFMC.law_name_template = ''; %not needed, but field needs to exist
+% MFMC.fname = fname; 
+% MFMC.root_path = '/';
+% MFMC.sequence_name_template = ''; %not needed, but field needs to exist
+% MFMC.probe_name_template = ''; %not needed, but field needs to exist
+% MFMC.law_name_template = ''; %not needed, but field needs to exist
 
-if isempty(seq_ref)
-    [names, SEQUENCE] = fn_MFMC_helper_get_sequences(fname);
+if isempty(ref_or_index_or_loc)
+    [~, SEQUENCE] = fn_MFMC_get_probe_and_sequence_refs(MFMC);
     if length(SEQUENCE) > 1
         warning('MFMC file contains multiple sequences. Using first sequence.');
     end
-    seq_ref = SEQUENCE{1}.ref;
+    ref_or_index_or_loc = SEQUENCE{1}.ref;
 end
 
-seq = fn_MFMC_read_sequence(MFMC, seq_ref);
 
 if isempty(frame_index)
-    no_frames = fn_MFMC_get_no_frames(MFMC, seq_ref);
+    no_frames = fn_MFMC_get_no_frames(MFMC, ref_or_index_or_loc);
     if no_frames > 1
         warning('MFMC sequence contains multiple frames. Returning first frame.');
     end
     frame_index = 1;
 end
 
-frame = fn_MFMC_read_frame(MFMC, seq_ref, frame_index);
+frame = fn_MFMC_read_frame(MFMC, ref_or_index_or_loc, frame_index);
 
 %check number of probes and add to exp_data
+seq = fn_MFMC_read_sequence(MFMC, ref_or_index_or_loc);
 no_probes = size(seq.PROBE_LIST, 1);
 if no_probes > 1
     error('Multiple probe not supported in Brain exp_data format');

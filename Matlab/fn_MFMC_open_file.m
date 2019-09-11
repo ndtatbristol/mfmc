@@ -6,8 +6,10 @@ function MFMC = fn_MFMC_open_file(fname, varargin)
 %INPUTS
 %   fname - full path and name of file (path is needed to avoid erratic
 %   behaviour due to way Matlab HDF5 functions work)
-%   root_path - optional location of MFMC data in file. Default is root,
+%   [root_path] - optional location of MFMC data in file. Default is root,
 %   i.e. '/'
+%   [open_file_only] - open file if it exists, don't create a new one if it
+%   doesn't and don't check for MFMC data.
 %OUTPUTS
 %   MFMC - structure for subsequent calls to MFMC functions with fields:
 %       .fname - file name
@@ -32,14 +34,28 @@ MFMC.VERSION = '2.0.0';
 if length(varargin) < 1
     MFMC.root_path = '/';
 else
-    MFMC.root_path = varargin{1};
+    if isempty(varargin{1})
+        MFMC.root_path = '/';
+    else
+        MFMC.root_path = varargin{1};
+    end
     if ~strcmp(MFMC.root_path(end), '/')
         MFMC.root_path = [MFMC.root_path, '/'];
     end
 end
 
+if length(varargin) < 2
+    open_file_only = 0;
+else
+    open_file_only = varargin{2};
+end
+
 %If file does not exist, create it
 if ~exist(fname, 'file')
+    if open_file_only
+        warning('File does not exist.');
+        return
+    end
     fcpl = H5P.create('H5P_FILE_CREATE');
     fapl = H5P.create('H5P_FILE_ACCESS');
     file_id = H5F.create(MFMC.fname, 'H5F_ACC_TRUNC', fcpl, fapl);
@@ -47,6 +63,10 @@ else
     file_id = H5F.open(fname); %will throw error if not HDF5 file
 end
 H5F.close(file_id);
+
+if open_file_only
+    return
+end
 
 %If root path exists and contains correct attribute, exit here
 try
