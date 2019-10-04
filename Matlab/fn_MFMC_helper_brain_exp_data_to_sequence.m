@@ -2,34 +2,25 @@ function [SEQUENCE]=fn_MFMC_helper_brain_exp_data_to_sequence(exp_data,PROBE,var
 
     % Convert BRAIN (relevant) exp_data data structure to SEQUENCE of MFMC format
     % Associate this SEQUENCE with PROBE
+    %optional arguments are longitudinal and shear velocities; if
+    %longitudinal velocity argument is non-empty it is used instead of 
+    %exp_data.ph_velocity. If shear velocity not specified then shear
+    %velocity of half longitudinal velocity is written to MFMC file
 
     SEQUENCE.TIME_STEP = exp_data.time(2)-exp_data.time(1);
     SEQUENCE.START_TIME = exp_data.time(1);
-    if (isfield(exp_data,'material_L_velocity'))
-        long_vel=exp_data.material_L_velocity;
-    elseif (~isempty(varargin))
+    if length(varargin) >= 1 && ~isempty(varargin{1})
         long_vel=varargin{1};
-    elseif (isfield(exp_data,'ph_velocity'))
+    else
         long_vel=exp_data.ph_velocity;
-    else
-        disp('ERROR: longnitudinal velocity not specified')
-        return;
     end
-    if (isfield(exp_data,'material_T_velocity'))
-        shear_vel=exp_data.material_T_velocity;
-    elseif (~isempty(varargin))
+    if length(varargin) >= 2 && ~isempty(varargin{2})
         shear_vel=varargin{2};
-    elseif (isfield(exp_data,'ph_velocity'))
-        shear_vel=exp_data.ph_velocity*0.5;
     else
-        disp('ERROR: shear velocity not specified')
-        return;
+        shear_vel=exp_data.ph_velocity*0.5;
+        warning('Using shear velocity = 0.5 * longitudinal velocity');
     end
     SEQUENCE.SPECIMEN_VELOCITY = [shear_vel, long_vel];
-    
-    if (isfield(exp_data,'water_velocity'))
-        SEQUENCE.WEDGE_VELOCITY=[NaN,exp_data.water_velocity];
-    end
     
     SEQUENCE.PROBE_LIST = PROBE.ref; %this is the HDF5 object reference
 
