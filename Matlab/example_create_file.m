@@ -97,7 +97,7 @@ fn_MFMC_add_user_dataset(MFMC, SEQUENCE.location, 'USER_DATASET', rand(10,10));
 %ADD TWO FRAMES OF DATA TO SEQUENCE
 
 no_a_scans_per_frame = el_number;
-no_time_pts = 100000;
+no_time_pts = 57;
 
 FRAME.MFMC_DATA = int8(randi(2^8, no_time_pts, no_a_scans_per_frame)-2^7);                              %random int8 data to represent physical data
 FRAME.PROBE_POSITION = [0; 0; 0];                                                                       %PCS origin is at GCS origin
